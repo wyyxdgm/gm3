@@ -1,23 +1,31 @@
 {
-	"partOne": {
-		"template": "demo2@V1.0.0"
-	},
-	"partTwo": {
-		"template": "demo2@V1.0.0",
-		"data": {
-			"content1": {
-				"template": "demo1@V1.0.0",
-				"data": {
-					"placeholder": "hello by demo3"
-				}
-			},
-			"listContent": ["text1", {
-				"template": "demo1@V1.0.0",
-				"data": {
-					"placeholder": "hello by demo3"
-				}
-			}, "text3"]
-		}
-	},
-	"partThree": "第三部分"
+	"columns": [{
+		"prop": "id",
+		"label": "id",
+		"fixed": true
+	}, {
+		"prop": "room_id",
+		"label": "room_id"
+	}, {
+		"prop": "start_time",
+		"label": "start_time"
+	}, {
+		"prop": "end_time",
+		"label": "end_time"
+	}, {
+		"prop": "event_type",
+		"label": "event_type"
+	}, {
+		"prop": "summary",
+		"label": "summary"
+	}, {
+		"prop": "uid",
+		"label": "uid"
+	}, {
+		"prop": "email",
+		"label": "email"
+	}, {
+		"prop": "phone",
+		"label": "phone"
+	}]
 }
