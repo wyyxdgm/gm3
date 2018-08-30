@@ -1,0 +1,16 @@
+{
+  "name": "gm",
+  "version": "1.0.0",
+  "description": "constructing your world by snippets",
+  "main": "gm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wyyxdgm@163.com",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "underscore": "^1.9.1"
+  },
+  "devDependencies": {}
+}

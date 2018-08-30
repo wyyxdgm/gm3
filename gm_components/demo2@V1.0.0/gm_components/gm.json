@@ -1,0 +1,23 @@
+{
+  "name": "demo1",
+  "homepage": "https://github.com/wyyxdgm/EasyH5",
+  "authors": [
+    "Guimao Dai <guimaodai@gmail.com>"
+  ],
+  "description": "firt demo for build html template",
+  "main": "demo1",
+  "keywords": [
+    "js",
+    "vue",
+    "element-ui"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

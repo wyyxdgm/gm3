@@ -1,0 +1,25 @@
+<div id="demo2">
+  <div class="demo2">
+    <%-content1%>
+  </div>
+  <div class="list">
+    <%listContent.forEach(item=>{%>
+      <div class="item">
+        <%-item%>
+      </div>
+      <%})%>
+  </div>
+  <template>
+    <el-table
+      :data="tableData"
+      style="width: 100%">
+      <%tableSeries.forEach(item=>{%>
+      <el-table-column
+        prop="<%-item.prop%>"
+        label="<%-item.label%>"
+        width="180">
+      </el-table-column>
+      <%})%>
+    </el-table>
+  </template>
+</div>

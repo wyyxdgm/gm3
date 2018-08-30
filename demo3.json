@@ -1,0 +1,23 @@
+{
+	"partOne": {
+		"template": "demo2@V1.0.0"
+	},
+	"partTwo": {
+		"template": "demo2@V1.0.0",
+		"data": {
+			"content1": {
+				"template": "demo1@V1.0.0",
+				"data": {
+					"placeholder": "hello by demo3"
+				}
+			},
+			"listContent": ["text1", {
+				"template": "demo1@V1.0.0",
+				"data": {
+					"placeholder": "hello by demo3"
+				}
+			}, "text3"]
+		}
+	},
+	"partThree": "第三部分"
+}

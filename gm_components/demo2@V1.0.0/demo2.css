@@ -1,0 +1,21 @@
+#demo2 {
+	.demo2 {
+		width: 200px;
+		height: 200px;
+		border-radius: 200px;
+		border: 1px solid #dfafad;
+		background: #0000FF;
+	}
+
+	.list {
+		margin: 30px auto;
+		padding: 10px 10px;
+		border: 1px solid #aaa;
+
+		.item {
+			color: #aabb00;
+		}
+
+	}
+
+}
