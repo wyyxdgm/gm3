@@ -84,9 +84,9 @@ function deepExtend() {
 			source = option[key]
 			// console.log("source", source, "option", option, "key", key)
 			//  如果为深拷贝并且此时的属性值为对象，则进行递归拷贝
-			if (deep && typeof source === 'object') {
+			if (deep && _.isObject(source)) {
 				if (!_.isObject(tar)) { //  如果目标对象没有此属性，那么创建它
-					tar = Object.prototype.toString.call(source) === '[object Array]' ? [] : {}
+					tar = _.isArray(source) ? [] : {}
 				}
 				//  将递归拷贝的结果赋值给目标对象
 				target[key] = deepExtend(deep, tar, source);
