@@ -2,9 +2,12 @@
   "name": "gm",
   "version": "1.0.0",
   "description": "constructing your world by snippets",
-  "main": "gm.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "gm": "./gm.js"
   },
   "author": "wyyxdgm@163.com",
   "license": "ISC",
