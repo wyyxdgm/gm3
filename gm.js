@@ -9,17 +9,17 @@ let argv = require("argp").createParser({
 		once: true
 	})
 	.on('end', function(argv) {
-		if (!argv.build) this.printHelp();
+		// if (!argv.build) this.printHelp();
 	})
 	.description("Gm help.")
 	.email("wyyxdgm@163.com")
 	.body()
 	// The object and argument definitions and the text of the --help message
 	// are configured at the same time
-	.text(" Arguments:")
-	.argument("build", {
-		description: "compile && build file"
-	})
+	// .text(" Arguments:")
+	// .argument("build", {
+	// 	description: "compile && build file"
+	// })
 	.text("\n Options:")
 	.option({
 		short: "d",
@@ -41,6 +41,18 @@ let argv = require("argp").createParser({
 		description: "Appends intead of replaces an array"
 	})
 	.option({
+		short: "b",
+		long: "build",
+		description: "Compile && build file"
+	})
+	.option({
+		short: "i",
+		long: "install",
+		optional: true,
+		metavar: "MODULES",
+		description: "Install templates"
+	})
+	.option({
 		short: "V",
 		long: "verbose",
 		description: "Makes output more verbose"
@@ -48,9 +60,11 @@ let argv = require("argp").createParser({
 	.help()
 	.version("v1.0.0")
 	.argv();
-
-if (argv.build) {
-	let util = require('./lib/util.js');
+let util = require('./lib/util.js');
+let baseDir = argv.directory ? require('path').resolve(process.cwd(), argv.directory) : process.cwd();
+if (argv.install) {
+	util.install(argv.install, baseDir);
+} else {
 	util.init(argv);
-	util.build(argv.directory ? require('path').resolve(process.cwd(), argv.directory) : process.cwd(), argv['output'], argv['append-array']);
+	util.build(baseDir, argv['output'], argv['append-array']);
 }
