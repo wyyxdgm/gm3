@@ -47,7 +47,6 @@ let argv = require("argp").createParser({
 	.argv();
 
 let util = require('./lib/util.js');
-
 util.init(argv);
 
 util.build(argv.directory ? require('path').resolve(process.cwd(), argv.directory) : process.cwd(), argv['output'], argv['append-array']);
