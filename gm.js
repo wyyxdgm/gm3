@@ -1,6 +1,7 @@
 let fs = require('fs');
 let path = require('path');
 let _ = require('underscore');
+let ejs = require('ejs');
 let _require = (path_name_no_suffix) => {
 	let json;
 	try {
@@ -29,78 +30,54 @@ let loadHJ = (baseDir) => {
 		conf
 	};
 }
+/**
+ * load args
+ * @type string
+ */
+var argv = require("argp").createParser({
+		once: true
+	})
+	.description("Gm help.")
+	.email("wyyxdgm@163.com")
+	.body()
+	//The object and argument definitions and the text of the --help message
+	//are configured at the same time
+	// .text(" Arguments:")
+	// .argument("path", {
+	// 	description: "Path of the target file that will be bulilded, default value is defined in gm.json by the 'main' property"
+	// })
+	.text("\n Options:")
+	.option({
+		short: "p",
+		long: "path",
+		optional: true,
+		metavar: "file path",
+		description: "Path of the target file that will be bulilded, default value is defined in gm.json by the 'main' property"
+	})
+	.option({
+		short: "a",
+		long: "apend-array",
+		description: "Defined that the array should be extended or replaced"
+	})
+	.help()
+	.version("v1.0.0")
+	.argv();
 
+// console.log(argv);
+
+
+/**
+ * init htmlContent,json,conf
+ */
 let {
 	htmlContent,
 	json,
 	conf
 } = loadHJ(__dirname);
-// console.log('base----------------', {
-// 	htmlContent,
-// 	json
-// })
-let ejs = require('ejs');
+
 
 /**
- *
- * 构建当前页面的json。
- * [0]for key
- * 	[1]如果是template,
- * 		读取该tempate,路径：相对当前路径
- * 			读取的数据
- * 				如果原来没有data数据，
- * 					拼接到该json的data上
- * 						回到[0]
- * 				如果原来的有数据，进入下一层
- * 					回到[1]
- * 
- * 		如果是别的直接忽略。
- * PRE: 所有的 template 都在 gm_components 下
- */
-
-function deepExtend() {
-	//  arguments种类
-	//  [deep]  可选，标注是否为深度继承
-	//  target  第一个对象，则为目标对像
-	//  options  之后的对象，都视为继承对象
-	var args = arguments,
-		target = args[0], //  假设第一个参数为目标对象
-		len = args.length, //  获取参数总长度
-		i = 1, //  假设继承对象从下标为1开始
-		deep = false, //  初始化为浅拷贝
-		tar, source, option, key
-	//  如果第一个参数是布尔值，那么第二个参数做为目标对象
-	if (typeof target === 'boolean') {
-		deep = target
-		target = args[i++]
-	}
-	//  遍历继承对象，并将每一个都继承到目标对象中
-	for (; i < len; i++) {
-
-		option = args[i]
-
-		for (key in option) {
-			tar = target[key]
-			source = option[key]
-			// console.log("source", source, "option", option, "key", key)
-			//  如果为深拷贝并且此时的属性值为对象，则进行递归拷贝
-			if (deep && _.isObject(source)) {
-				if (!_.isObject(tar)) { //  如果目标对象没有此属性，那么创建它
-					tar = _.isArray(source) ? [] : {}
-				}
-				//  将递归拷贝的结果赋值给目标对象
-				target[key] = deepExtend(deep, tar, source);
-			} else {
-				//  如果为浅拷贝，直接赋值
-				target[key] = source
-			}
-		}
-	}
-	return target
-}
-
-/**
- * gmComponents loadGM
+ * init gmComponents by load gm_components
  * @type {}
  */
 let gmComponents = {};
@@ -179,3 +156,63 @@ fs.writeFileSync(path.join(__dirname, conf.output || 'gm.html'), htmlStr);
 //     -v, --version           Output Bower version
 //     --no-color              Disable colors
 //     --config.interactive=false Disable prompts
+
+
+/**
+ *
+ * 构建当前页面的json。
+ * [0]for key
+ * 	[1]如果是template,
+ * 		读取该tempate,路径：相对当前路径
+ * 			读取的数据
+ * 				如果原来没有data数据，
+ * 					拼接到该json的data上
+ * 						回到[0]
+ * 				如果原来的有数据，进入下一层
+ * 					回到[1]
+ * 
+ * 		如果是别的直接忽略。
+ * PRE: 所有的 template 都在 gm_components 下
+ */
+
+function deepExtend() {
+	//  arguments种类
+	//  [deep]  可选，标注是否为深度继承
+	//  target  第一个对象，则为目标对像
+	//  options  之后的对象，都视为继承对象
+	var args = arguments,
+		target = args[0], //  假设第一个参数为目标对象
+		len = args.length, //  获取参数总长度
+		i = 1, //  假设继承对象从下标为1开始
+		deep = false, //  初始化为浅拷贝
+		tar, source, option, key
+	//  如果第一个参数是布尔值，那么第二个参数做为目标对象
+	if (typeof target === 'boolean') {
+		deep = target
+		target = args[i++]
+	}
+	//  遍历继承对象，并将每一个都继承到目标对象中
+	for (; i < len; i++) {
+
+		option = args[i]
+
+		for (key in option) {
+			tar = target[key]
+			source = option[key]
+			// console.log("source", source, "option", option, "key", key)
+			//  如果为深拷贝并且此时的属性值为对象，则进行递归拷贝
+			if (deep && _.isObject(source)) {
+				if (!_.isObject(tar)) { //  如果目标对象没有此属性，那么创建它
+					tar = _.isArray(source) ? [] : {}
+				}
+
+				//  将递归拷贝的结果赋值给目标对象
+				target[key] = deepExtend(deep, tar, source);
+			} else {
+				//  如果为浅拷贝，直接赋值
+				target[key] = source
+			}
+		}
+	}
+	return target
+}
