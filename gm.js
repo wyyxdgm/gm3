@@ -46,7 +46,7 @@ let baseDir = argv.directory ? path.resolve(process.cwd(), argv.directory) : pro
 let verbose = argv.verbose;
 
 let _require = (path_name_no_suffix) => {
-	if (verbose) console.log(CONSOLE_HEAD, 'LoadModule'.yellow, path.relative(baseDir, path_name_no_suffix));
+	if (verbose) console.log(CONSOLE_HEAD, 'Load'.yellow, path.relative(baseDir, path_name_no_suffix));
 	let json;
 	try {
 		json = require(path_name_no_suffix);
