@@ -13,6 +13,7 @@
     "underscore": "^1.9.1"
   },
   "devDependencies": {
-    "argp": "^1.0.4"
+    "argp": "^1.0.4",
+    "colors": "^1.3.2"
   }
 }

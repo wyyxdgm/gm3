@@ -2,7 +2,51 @@ let fs = require('fs');
 let path = require('path');
 let _ = require('underscore');
 let ejs = require('ejs');
+let colors = require('colors');
+/**
+ * load args
+ * @type Object
+ */
+let CONSOLE_HEAD = '[GM]'.green;
+let argv = require("argp").createParser({
+		once: true
+	})
+	.description("Gm help.")
+	.email("wyyxdgm@163.com")
+	.body()
+	//The object and argument definitions and the text of the --help message
+	//are configured at the same time
+	// .text(" Arguments:")
+	// .argument("path", {
+	// 	description: "Path of the target file that will be bulilded, default value is defined in gm.json by the 'main' property"
+	// })
+	.text("\n Options:")
+	.option({
+		short: "d",
+		long: "directory",
+		optional: true,
+		metavar: "DIR",
+		description: "The directory to be builded, default is current directory"
+	})
+	.option({
+		short: "a",
+		long: "append-array",
+		description: "Appends intead of replaces an array"
+	})
+	.option({
+		short: "V",
+		long: "verbose",
+		description: "Makes output more verbose"
+	})
+	.help()
+	.version("v1.0.0")
+	.argv();
+
+let baseDir = argv.directory ? path.resolve(process.cwd(), argv.directory) : process.cwd();
+let verbose = argv.verbose;
+
 let _require = (path_name_no_suffix) => {
+	if (verbose) console.log(CONSOLE_HEAD, 'LoadModule'.yellow, path.relative(baseDir, path_name_no_suffix));
 	let json;
 	try {
 		json = require(path_name_no_suffix);
@@ -30,42 +74,8 @@ let loadHJ = (baseDir) => {
 		conf
 	};
 }
-/**
- * load args
- * @type string
- */
-var argv = require("argp").createParser({
-		once: true
-	})
-	.description("Gm help.")
-	.email("wyyxdgm@163.com")
-	.body()
-	//The object and argument definitions and the text of the --help message
-	//are configured at the same time
-	// .text(" Arguments:")
-	// .argument("path", {
-	// 	description: "Path of the target file that will be bulilded, default value is defined in gm.json by the 'main' property"
-	// })
-	.text("\n Options:")
-	.option({
-		short: "p",
-		long: "path",
-		optional: true,
-		metavar: "file path",
-		description: "Path of the target file that will be bulilded, default value is defined in gm.json by the 'main' property"
-	})
-	.option({
-		short: "a",
-		long: "apend-array",
-		description: "Defined that the array should be extended or replaced"
-	})
-	.help()
-	.version("v1.0.0")
-	.argv();
 
-// console.log(argv);
-
-
+if (verbose) console.log(CONSOLE_HEAD, `BuildDirectory: ${baseDir}`)
 /**
  * init htmlContent,json,conf
  */
@@ -73,7 +83,7 @@ let {
 	htmlContent,
 	json,
 	conf
-} = loadHJ(__dirname);
+} = loadHJ(baseDir);
 
 
 /**
@@ -81,9 +91,9 @@ let {
  * @type {}
  */
 let gmComponents = {};
-let gmComponentsDirs = fs.readdirSync(path.join(__dirname, 'gm_components'));
+let gmComponentsDirs = fs.readdirSync(path.join(baseDir, 'gm_components'));
 gmComponentsDirs.forEach((moduleDir) => {
-	let _p = path.join(__dirname, 'gm_components', moduleDir);
+	let _p = path.join(baseDir, 'gm_components', moduleDir);
 	gmComponents[moduleDir] = loadHJ(_p);
 });
 
@@ -101,11 +111,13 @@ let build = () => {
 			for (key in data) {
 				data[key] = resolveKey(data, key);
 			}
-			// console.log('ejs.render:')
-			// console.log(moduleComponent.htmlContent);
+			if (verbose) console.log(`[GM] Render: ${v.template}`);
+			// console.log(`ejs.render: ${v.template}`)
+			// console.log(v.template);
 			// console.log('- - - - - - - - - - - - ')
 			// console.log(data);
 			// console.log('========================')
+
 			return ejs.render(moduleComponent.htmlContent, data);
 		} else if (_.isArray(v)) {
 			// console.log('isArray====================', v)
@@ -123,7 +135,7 @@ let build = () => {
 	return htmlStr;
 }
 let htmlStr = build();
-fs.writeFileSync(path.join(__dirname, conf.output || 'gm.html'), htmlStr);
+fs.writeFileSync(path.join(baseDir, conf.output || 'gm.html'), htmlStr);
 
 //bower
 // cache                   Manage bower cache
@@ -205,7 +217,10 @@ function deepExtend() {
 				if (!_.isObject(tar)) { //  如果目标对象没有此属性，那么创建它
 					tar = _.isArray(source) ? [] : {}
 				}
-
+				if (_.isArray(tar) && _.isArray(source) && !argv['append-array']) {
+					let _st = source.length > tar.length
+					if (_st > 0) source.splice(_st);
+				}
 				//  将递归拷贝的结果赋值给目标对象
 				target[key] = deepExtend(deep, tar, source);
 			} else {
