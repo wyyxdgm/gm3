@@ -1,0 +1,1 @@
+console.log(require('../lib/index.js').build(require('path').join(__dirname, '../'), false));
