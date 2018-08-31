@@ -1,31 +1,11 @@
 {
-	"columns": [{
-		"prop": "id",
-		"label": "id",
-		"fixed": true
-	}, {
-		"prop": "room_id",
-		"label": "room_id"
-	}, {
-		"prop": "start_time",
-		"label": "start_time"
-	}, {
-		"prop": "end_time",
-		"label": "end_time"
-	}, {
-		"prop": "event_type",
-		"label": "event_type"
-	}, {
-		"prop": "summary",
-		"label": "summary"
-	}, {
-		"prop": "uid",
-		"label": "uid"
-	}, {
-		"prop": "email",
-		"label": "email"
-	}, {
-		"prop": "phone",
-		"label": "phone"
-	}]
+	"content": {
+		"template": "vue-el-table-columns@V1.0.0",
+		"data": {
+			"columns": [{
+				"prop": "id2",
+				"label": "id2"
+			}]
+		}
+	}
 }

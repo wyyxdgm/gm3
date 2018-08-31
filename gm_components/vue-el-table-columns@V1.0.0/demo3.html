@@ -1,0 +1,99 @@
+<template>
+  <div v-if="isAuthentic && authed" class="table-airbnbical data-table-wrapper">
+    <h1>{{ msg }}</h1>
+    <hr class="separator">
+    <template>
+      <el-table :data="tableData" v-loading="loading" element-loading-text="加载中" border style="width: 100%">
+        <%columns.forEach(column=>{%>
+          <el-table-column <%-column.fixed? 'fixed ': ' '%>prop="<%-column.prop%>" label="<%-column.label%>" width="70">
+          </el-table-column>
+          <%});%>
+            <el-table-column fixed="right" label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button @click="buildToReservation(scope.row)" type="text" size="small">生成订单</el-button>
+              </template>
+            </el-table-column>
+      </el-table>
+    </template>
+  </div>
+</template>
+<permission-error v-else-if="isAuthentic && !authed"></permission-error>
+<auth-error v-else></auth-error>
+<!-- <script src="@/script/Login.js"></script> -->
+<script>
+// import router from '../../router'
+import $ from '@/api/baseApi.js';
+import Pagination from './../Pagination'
+import authError from './../error/authError'
+import PermissionError from './../error/PermissionError'
+// import moment from 'moment'
+// import _ from 'lodash'
+
+export default {
+  name: 'ical',
+  data() {
+    return {
+      isAuthentic: false,
+      msg: '',
+      tableData: [],
+      loading: true,
+    }
+  },
+  components: {
+    'pages': Pagination,
+    'auth-error': authError,
+    'permission-error': PermissionError
+  },
+  mounted() {
+    // console.log(this.$route.name + ' mounted mounted mounted');
+    this.loadData();
+  },
+  beforeCreate() {
+    // console.log(this.$route.name + ' Nothing gets called before me!')
+  },
+  created() {
+    let user = null;
+    try {
+      user = JSON.parse(this.$cookie.get('user'));
+    } catch (e) {
+      console.log(e);
+    }
+    this.isAuthentic = user ? true : false;
+    this.permissionLevel = user.calendar_permission_level_id;
+    this.user = user;
+    if (this.isAuthentic) {
+      this.msg = 'AirbnbIcal 数据列表';
+    } else {
+      this.msg = 'You are not logged in, get out!';
+    }
+  },
+  computed: {
+    authed() {
+      return this.permissionLevel && this.permissionLevel <= 1 || this.user.block_time;
+    },
+    authed2() {
+      return this.permissionLevel && this.permissionLevel <= 1 || this.user.block_time == 2;
+    }
+  },
+  methods: {
+    buildToReservation(item) {
+      $.post('date_reservation/create', item)
+        .then((data) => {
+          console.log(data);
+          this.$message.success('生成订单成功');
+        })
+        .catch((err) => console.log(err));
+    },
+    loadData() {
+      var self = this;
+      $.get('ical/allFromAirbnb')
+        .then((data) => {
+          self.tableData = data;
+          self.loading = false;
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+}
+</script>
+<style src="@/styles/AirbnbIcal.css" scoped>

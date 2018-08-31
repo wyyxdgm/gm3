@@ -13,9 +13,8 @@
     "element-ui"
   ],
   "dependencies": {
-    "demo1": "@V1.0.0",
-    "demo2": "@V1.0.0",
-    "vue-el-table-columns": "@V1.0.0"
+    "demo1": "@1.0.0",
+    "demo2": "@1.0.0"
   },
   "license": "MIT",
   "private": false,
