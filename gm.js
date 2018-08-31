@@ -7,7 +7,7 @@ let util = require('./lib/util.js');
  * load args
  * @type Object
  */
-let CONSOLE_HEAD = '[GM]'.green;
+
 let argv = require("argp").createParser({
 		once: true
 	})
@@ -50,9 +50,9 @@ let argv = require("argp").createParser({
 	.argv();
 
 let baseDir = argv.directory ? path.resolve(process.cwd(), argv.directory) : process.cwd();
+
 util.init({
 	verbose: argv['verbose'],
-	CONSOLE_HEAD: CONSOLE_HEAD,
 	'append-array': argv['append-array']
 });
 
