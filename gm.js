@@ -53,6 +53,30 @@ let argv = require("argp").createParser({
 		description: "Install templates"
 	})
 	.option({
+		short: "A",
+		long: "auth",
+		optional: true,
+		metavar: "USER:PASS",
+		description: "User auth by name and password"
+	})
+	.option({
+		short: "s",
+		long: "search",
+		optional: true,
+		metavar: "key1:key2:...",
+		description: "Search by keys"
+	})
+	.option({
+		short: "p",
+		long: "publish",
+		description: "Publish package"
+	})
+	.option({
+		short: "I",
+		long: "info",
+		description: "Show local infos"
+	})
+	.option({
 		short: "V",
 		long: "verbose",
 		description: "Makes output more verbose"
@@ -64,6 +88,15 @@ let util = require('./lib/util.js');
 let baseDir = argv.directory ? require('path').resolve(process.cwd(), argv.directory) : process.cwd();
 if (argv.install) {
 	util.install(argv.install, baseDir);
+} else if (argv.auth) {
+	let as = argv.auth.split(':');
+	util.auth(as[0], as[1]);
+} else if (argv.info) {
+	util.info();
+} else if (argv.publish) {
+	util.publish();
+} else if (argv.search) {
+	util.search(argv.search.split(':'));
 } else {
 	util.init(argv);
 	util.build(baseDir, argv['output'], argv['append-array']);
