@@ -69,12 +69,12 @@ demo3@V1.0.0
 }
 ```
 
-**输入数据的指定**  `main` 和 `input` 都是用来指定输入源的。  
+**输入数据的指定**  `main` 和 `input` 都是用来指定输入源的。优先级: input > main。  
 
     `main` 无需后缀。默认 ${main}.html 和 ${main}.js（或 ${main}.json）  
-    `input` 包含template和data，值为文件相对路径。如果配置了input，将忽略main。  
+    `input` 包含template和data，值为文件相对路径。
 
-**输出数据的指定** `output` 配置输出路径。（默认gm.html）
+**输出数据的指定** `output` 配置输出路径。（默认gm.html）  
 
 * demo3.html
 
