@@ -57,6 +57,10 @@ demo3@V1.0.0
 {
   "name": "demo3",              #project name && gm publish name
   "main": "demo3",              #main source file
+  "input": {                    #if defineded,take this instead of 'main'
+    "template": "./demo3.html",
+    "data": "demo3.json"
+  },
   "output": "gm.html",          #target file for building, 'gm.html' as defult
   "dependencies": {             #the templates that used in this project
     "demo1": "@1.0.0",
@@ -64,6 +68,13 @@ demo3@V1.0.0
   }
 }
 ```
+
+**输入数据的指定**  `main` 和 `input` 都是用来指定输入源的。  
+
+    `main` 无需后缀。默认 ${main}.html 和 ${main}.js（或 ${main}.json）  
+    `input` 包含template和data，值为文件相对路径。如果配置了input，将忽略main。  
+
+**输出数据的指定** `output` 配置输出路径。（默认gm.html）
 
 * demo3.html
 
@@ -83,7 +94,7 @@ partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [ejs]
 </div>
 ```
 
-demo3.json
+* demo3.json
 
 ```
 {

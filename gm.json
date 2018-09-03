@@ -6,6 +6,10 @@
   ],
   "description": "firt demo for build html template",
   "main": "demo3",
+  "input": {
+    "template": "./demo3.html",
+    "data": "demo3.json"
+  },
   "output": "gm.html",
   "keywords": [
     "js",
