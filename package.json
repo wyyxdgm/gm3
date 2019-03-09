@@ -7,15 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "gm": "./gm.js"
+    "gm": "./bin/gm.js"
   },
   "author": "wyyxdgm@163.com",
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
-    "underscore": "^1.9.1"
-  },
-  "devDependencies": {
+    "underscore": "^1.9.1",
     "argp": "^1.0.4",
     "colors": "^1.3.2",
     "ejs-lint": "^0.3.0",
