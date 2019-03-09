@@ -91,7 +91,7 @@ let argv = require("argp").createParser({
 	.help()
 	.version("v1.0.0")
 	.argv();
-let util = require('./lib/util.js');
+let util = require('../lib/util.js');
 let baseDir = argv.directory ? require('path').resolve(process.cwd(), argv.directory) : process.cwd();
 if (argv.install) {
 	util.install(argv.install, baseDir);
