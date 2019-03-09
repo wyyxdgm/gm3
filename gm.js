@@ -36,6 +36,13 @@ let argv = require("argp").createParser({
 		description: "Write the builded content to the target file"
 	})
 	.option({
+		short: "m",
+		long: "main",
+		optional: true,
+		metavar: "PATH",
+		description: "defind the entry file"
+	})
+	.option({
 		short: "a",
 		long: "append-array",
 		description: "Appends intead of replaces an array"
@@ -99,5 +106,5 @@ if (argv.install) {
 	util.search(argv.search.split(':'));
 } else {
 	util.init(argv);
-	util.build(baseDir, argv['output'], argv['append-array']);
+	util.build(baseDir, argv['output'], argv['append-array'], argv['main']);
 }

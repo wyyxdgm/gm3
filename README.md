@@ -99,20 +99,20 @@ partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [ejs]
 ```
 {
     "partOne": {
-        "template": "demo2@V1.0.0"
+        "$template": "demo2@V1.0.0"
     },
     "partTwo": {
-        "template": "demo2@V1.0.0",
-        "data": {
+        "$template": "demo2@V1.0.0",
+        "$data": {
             "content1": {
-                "template": "demo1@V1.0.0",
-                "data": {
+                "$template": "demo1@V1.0.0",
+                "$data": {
                     "placeholder": "hello by demo3"
                 }
             },
             "listContent": ["text1", {
-                "template": "demo1@V1.0.0",
-                "data": {
+                "$template": "demo1@V1.0.0",
+                "$data": {
                     "placeholder": "hello by demo3"
                 }
             }, "text3"]
@@ -129,8 +129,8 @@ partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [ejs]
 
 ```
 {
-    "template": "demo1@V1.0.0",
-    "data": {
+    "$template": "demo1@V1.0.0",
+    "$data": {
         "placeholder": "hello by demo3"
     }
 }
@@ -164,12 +164,20 @@ Gm help.
   -d, --directory[=DIR]       The directory to be builded, default is current
                                 directory
   -o, --output[=PATH]         Write the builded content to the target file
+  -m, --main[=PATH]           defind the entry file
   -a, --append-array          Appends intead of replaces an array
   -b, --build                 Compile && build file
   -i, --install[=MODULES]     Install templates
+  -A, --auth[=USER:PASS]      User auth by name and password
+  -s, --search[=key1:key2:...]  
+                              Search by keys
+  -p, --publish               Publish package
+  -I, --info                  Show local infos
   -V, --verbose               Makes output more verbose
   -h, --help                  Display this help message and exit
   -v, --version               Output version information and exit
+
+Report bugs to <wyyxdgm@163.com>.
 
 ```
 
@@ -179,6 +187,7 @@ Gm help.
 * `gm --install ../demo1` 会生成gm_components文件夹，并安装demo1。  
 * `gm [--build]` 通过数据依赖继承关系，生成gm.html。  
 * `gm -o test.html` 生成到test.html，此时忽略gm.json中的output值。  
+* `gm -m file_name` 设定`file_name`为入口文件，并build。
 
 
 

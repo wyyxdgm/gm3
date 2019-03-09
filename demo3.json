@@ -1,7 +1,7 @@
 {
 	"content": {
-		"template": "vue-el-table-columns@V1.0.0",
-		"data": {
+		"$template": "vue-el-table-columns@V1.0.0",
+		"$data": {
 			"columns": [{
 				"prop": "id2",
 				"label": "id2"
