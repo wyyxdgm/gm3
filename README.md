@@ -1,19 +1,19 @@
-# GM
+# GM3
 
-一个公共的html代码模板工具。可以借助模板引擎，将一些变动的元素以json数据的形式加以抽象，然后渲染到模板中，生成目标文件。让模板成为真正的模板。
+一个公共的html代码模板工具。可以借助模板引擎，将一些变动的元素以json数据的形式加以抽象，然后渲染到模板中，生成目标文件。让模板成为真正的模板。(模板引擎采用[EJS](https://github.com/mde/ejs))
 
 ## Getting Started
 
-使用gm需要现在全局安装npm包
+使用gm3需要现在全局安装npm包
 
 ### 环境基础
 
 1.需要node环境，参考[Installing Node.js via package manager](https://nodejs.org/en/download/package-manager/)  
 
-2.安装gm
+2.安装gm3
 
 ```
-npm install -g gm       # or [url of this repository]
+npm install -g gm3       # or [url of this repository]
 
 ```
 
@@ -38,7 +38,7 @@ npm install -g gm       # or [url of this repository]
 
 ```
 
-##架构解释
+## 架构解释
 
 * 资源至少包含gm.json，以及配置的html/json两个文件
 
@@ -78,7 +78,7 @@ demo3@V1.0.0
 
 * demo3.html
 
-partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [ejs](https://github.com/tj/ejs)
+partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [EJS](https://github.com/tj/ejs)
 
 ```
 <div id="demo3">
@@ -122,7 +122,7 @@ partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [ejs]
 }
 ```
 
-##template语法
+## template语法
 
 * 如果是一般数据，会直接渲染到html。
 * 如果是依赖于template生成,则数据结构可以是：
@@ -152,10 +152,10 @@ partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [ejs]
  ***template*** 由包名和版本号组成。固定格式引用。   
  ***data*** 填充该template的json数据，会覆盖模板的默认数据。可以为空，为空则用默认数据。
 
-##指令
+## 指令
 
 ```
-Usage: gm [options]
+Usage: gm3 [options]
 
 Gm help.
 
@@ -187,7 +187,59 @@ Report bugs to <wyyxdgm@163.com>.
 * `gm --install ../demo1` 会生成gm_components文件夹，并安装demo1。  
 * `gm [--build]` 通过数据依赖继承关系，生成gm.html。  
 * `gm -o test.html` 生成到test.html，此时忽略gm.json中的output值。  
-* `gm -m file_name` 设定`file_name`为入口文件，并build。
+* `gm -m main_file_name -o dist_file_name` 设定`file_name`为入口文件，并build。
 
+## 类库使用
+### 安装
+```bash
+npm install gm3
+```
+### 使用
 
+- 使用数据文件路径
+
+```
+const gm3 = require('gm3');
+let gm3Str = gm3.build({
+  dir: 'path_to_template_dir',
+  "input": {
+    "$template": "template.js",
+    "data": 'template.json'
+  }
+});
+console.log(gm3Str);
+```
+
+- 使用数据对象
+
+```
+const gm3 = require('gm3');
+let gm3Str = gm3.build({
+  dir: 'path_to_template_dir',
+  "input": {
+    "$template": "template.js",
+    "data": {}
+  }
+});
+console.log(gm3Str);
+```
+
+- 使用模板数据+模板路径(注意，如果要使用include指令必须设置模板路径，可以通过main或input.$template设置)
+
+```
+const gm3 = require('gm3');
+let gm3Str = gm3.build({
+  dir: 'path_to_template_dir',
+  "input": {
+    "$template": "<%-data1%>",
+    "data": {data1:'example'}
+  },
+  "main": "path_to_template_file"
+});
+console.log(gm3Str);
+```
+
+## 相关项目
+
+ * EJS: https://github.com/mde/ejs
 
