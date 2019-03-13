@@ -183,11 +183,11 @@ Report bugs to <wyyxdgm@163.com>.
 
 **举例**
 
-* `gm -h` 打印help信息。  
-* `gm --install ../demo1` 会生成gm_components文件夹，并安装demo1。  
-* `gm [--build]` 通过数据依赖继承关系，生成gm.html。  
-* `gm -o test.html` 生成到test.html，此时忽略gm.json中的output值。  
-* `gm -m main_file_name -o dist_file_name` 设定`file_name`为入口文件，并build。
+* `gm3 -h` 打印help信息。
+* `gm3 --install ../demo1` 会生成gm_components文件夹，并安装demo1。
+* `gm3 [--build]` 通过数据依赖继承关系，生成gm.html。
+* `gm3 -o test.html` 生成到test.html，此时忽略gm.json中的output值。
+* `gm3 -m main_file_name -o dist_file_name` 设定`file_name`为入口文件，并build。
 
 ## 类库使用
 ### 安装
@@ -195,6 +195,17 @@ Report bugs to <wyyxdgm@163.com>.
 npm install gm3
 ```
 ### 使用
+
+- 规则
+
+
+$template 指定模板路径
+template 指定模板内容
+$data 指定数据路径
+data 指定数据内容
+
+
+### demo
 
 - 使用数据文件路径
 
@@ -204,7 +215,7 @@ let gm3Str = gm3.build({
   dir: 'path_to_template_dir',
   "input": {
     "$template": "template.js",
-    "data": 'template.json'
+    "$data": 'template.json'
   }
 });
 console.log(gm3Str);
@@ -231,7 +242,7 @@ const gm3 = require('gm3');
 let gm3Str = gm3.build({
   dir: 'path_to_template_dir',
   "input": {
-    "$template": "<%-data1%>",
+    "template": "<%-data1%>",
     "data": {data1:'example'}
   },
   "main": "path_to_template_file"
