@@ -254,3 +254,24 @@ console.log(gm3Str);
 
  * EJS: https://github.com/mde/ejs
 
+## TODO
+
+cli support completely
+
+```
+  -d, --directory[=DIR]       The directory to be builded, default is current
+                                directory
+  -o, --output[=PATH]         Write the builded content to the target file
+  -m, --main[=PATH]           defind the entry file
+  -a, --append-array          Appends intead of replaces an array
+  -b, --build                 Compile && build file
+  -i, --install[=MODULES]     Install templates
+  -A, --auth[=USER:PASS]      User auth by name and password
+  -s, --search[=key1:key2:...]  
+                              Search by keys
+  -p, --publish               Publish package
+  -I, --info                  Show local infos
+  -V, --verbose               Makes output more verbose
+  -h, --help                  Display this help message and exit
+  -v, --version               Output version information and exit
+```
