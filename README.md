@@ -4,7 +4,8 @@
 
 ## Getting Started
 
-使用gm3需要现在全局安装npm包
+
+可以使用gm3全局安装npm包，直接执行 gm3 生成对应内容
 
 ### 环境基础
 
@@ -12,9 +13,14 @@
 
 2.安装gm3
 
+* 通过代码调用: `require('gm3')`
+```
+npm install gm3 
+```
+
+* 全局使用 `gm3`
 ```
 npm install -g gm3       # or [url of this repository]
-
 ```
 
 ### 开发指南
@@ -152,10 +158,11 @@ partOne，partTwo，partThree都是html文本。采用<%-%>，语法参考 [EJS]
  ***template*** 由包名和版本号组成。固定格式引用。   
  ***data*** 填充该template的json数据，会覆盖模板的默认数据。可以为空，为空则用默认数据。
 
-## 指令
+## 指令 -- gm3
 
 ```
 Usage: gm3 [options]
+default: gm3 = gm3 -b
 
 Gm help.
 
@@ -168,6 +175,12 @@ Gm help.
   -a, --append-array          Appends intead of replaces an array
   -b, --build                 Compile && build file
   -i, --install[=MODULES]     Install templates
+  -v, --version               Output version information and exit
+
+Report bugs to <wyyxdgm@163.com>.
+
+```
+<!--
   -A, --auth[=USER:PASS]      User auth by name and password
   -s, --search[=key1:key2:...]  
                               Search by keys
@@ -175,11 +188,7 @@ Gm help.
   -I, --info                  Show local infos
   -V, --verbose               Makes output more verbose
   -h, --help                  Display this help message and exit
-  -v, --version               Output version information and exit
-
-Report bugs to <wyyxdgm@163.com>.
-
-```
+-->
 
 **举例**
 

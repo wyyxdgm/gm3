@@ -9,8 +9,22 @@
   "bin": {
     "gm3": "./bin/gm.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wyyxdgm/gm3.git"
+  },
+  "keywords": [
+    "ejs",
+    "template",
+    "json2html",
+    "gm3"
+  ],
   "author": "wyyxdgm@163.com",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wyyxdgm/gm3/issues"
+  },
+  "homepage": "https://github.com/wyyxdgm/gm3#readme",
   "dependencies": {
     "ejs": "^2.6.1",
     "underscore": "^1.9.1",
