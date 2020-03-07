@@ -1,6 +1,6 @@
 {
   "name": "gm3",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "constructing your world by snippets",
   "main": "lib/index.js",
   "scripts": {
